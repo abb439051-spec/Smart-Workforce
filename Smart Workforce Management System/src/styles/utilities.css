@@ -1,0 +1,24 @@
+
+.section {
+  @apply max-w-7xl mx-auto px-6 py-28;
+}
+
+.section-title {
+  @apply text-4xl md:text-5xl font-bold text-slate-900;
+}
+
+.section-description {
+  @apply mt-6 text-lg text-slate-600 leading-8 max-w-3xl;
+}
+
+.primary-btn {
+  @apply bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition duration-300;
+}
+
+.secondary-btn {
+  @apply border border-slate-300 hover:border-blue-600 hover:text-blue-600 px-8 py-4 rounded-xl font-semibold transition duration-300;
+}
+
+.card {
+  @apply bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300;
+}
