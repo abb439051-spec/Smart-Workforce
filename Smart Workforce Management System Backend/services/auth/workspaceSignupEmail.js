@@ -1,32 +1,38 @@
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
 
-const createTransporter = () => {
-  const required = ["SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASSWORD"];
-  const missing = required.filter((key) => !process.env[key]);
+const sendEmail = async ({ to, subject, text, html }) => {
+  const missing = ["RESEND_API_KEY", "EMAIL_FROM"].filter((key) => !process.env[key]);
 
   if (missing.length) {
     throw new Error(`Email service is not configured: ${missing.join(", ")}`);
   }
 
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: process.env.SMTP_SECURE === "true",
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD,
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      from: process.env.EMAIL_FROM,
+      to: [to],
+      subject,
+      text,
+      html,
+    }),
   });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`Email provider rejected the message (${response.status}): ${errorBody}`);
+  }
 };
 
 const createOtp = () => String(crypto.randomInt(100000, 1000000));
 const hashOtp = (otp) => crypto.createHash("sha256").update(otp).digest("hex");
 
 const sendWorkspaceSignupOtp = async (email, otp) => {
-  const transporter = createTransporter();
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+  await sendEmail({
     to: email,
     subject: "Verify your Smart Workforce workspace email",
     text: `Your verification code is ${otp}. It expires in 10 minutes.`,
@@ -35,9 +41,7 @@ const sendWorkspaceSignupOtp = async (email, otp) => {
 };
 
 const sendPasswordResetOtp = async (email, otp) => {
-  const transporter = createTransporter();
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+  await sendEmail({
     to: email,
     subject: "Reset your Smart Workforce administrator password",
     text: `Your password reset code is ${otp}. It expires in 10 minutes.`,
