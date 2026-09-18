@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Hero() {
   return (
     <section 
-      className="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center pt-10 pb-12 md:py-20 lg:py-0" 
+      className="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center pt-10 pb-8 md:py-20 lg:py-5" 
       id="home"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center px-4 sm:px-6 lg:px-8 w-full">
@@ -23,7 +23,7 @@ function Hero() {
           
           <Link
             to="/register"
-            className="mt-8 mb-12 inline-flex rounded-xl bg-blue-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-blue-200 transition duration-200 hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0"
+            className="mt-4 mb-4 inline-flex rounded-xl bg-blue-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-blue-200 transition duration-200 hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0"
           >
             Start your workspace
           </Link>
