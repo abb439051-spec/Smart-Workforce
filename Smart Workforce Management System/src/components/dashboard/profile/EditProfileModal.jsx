@@ -39,6 +39,8 @@ function EditProfileModal({
           email: user?.userEmail,
           phone: user?.phone,
           designation: user?.designation,
+          address: user?.address,
+          companyName: user?.workspaceId?.companyName,
           skills: Array.isArray(user?.skills) ? user.skills.join(", ") : user?.skills || "",
         }}
       >
@@ -76,7 +78,7 @@ function EditProfileModal({
             label="Phone"
             name="phone"
           >
-            <Input placeholder="+91 9876543210" />
+            <Input placeholder="+91 98745XXXXX" />
           </Form.Item>
 
           <Form.Item
@@ -85,6 +87,16 @@ function EditProfileModal({
           >
             <Input placeholder="Senior Frontend Developer" />
           </Form.Item>
+
+          {user?.role === "admin" && (
+            <Form.Item
+              label="Company Name"
+              name="companyName"
+              rules={[{ required: true, message: "Please enter your company name" }]}
+            >
+              <Input placeholder="Your company name" />
+            </Form.Item>
+          )}
 
         </div>
 

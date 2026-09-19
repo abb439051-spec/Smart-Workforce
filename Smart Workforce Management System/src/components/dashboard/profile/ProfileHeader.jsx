@@ -32,6 +32,10 @@ function ProfileHeader({ user, onEditProfile, onContactAdmin }) {
                 : user.departmentId?.departmentName || "Workspace administrator"}
             </p>
 
+            <p className="text-gray-500">
+              {user.workspaceId?.companyName || "Company not provided"}
+            </p>
+
             <div className="mt-4 flex flex-wrap gap-2">
 
               <Tag color="green">

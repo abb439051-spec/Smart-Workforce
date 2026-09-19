@@ -8,6 +8,7 @@ const profile = async (req, res) => {
             workspaceId: req.user.workspaceId,
         })
             .populate("departmentId", "departmentName departmentCode")
+            .populate("workspaceId", "companyName companyEmail logo")
             .select("-password");
 
         if (!user) {

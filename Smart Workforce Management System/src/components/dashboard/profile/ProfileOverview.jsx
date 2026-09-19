@@ -33,6 +33,10 @@ const detailConfig = [
     icon: <EnvironmentOutlined />,
   },
   {
+    title: "Company",
+    icon: <IdcardOutlined />,
+  },
+  {
     title: "Employment Type",
     icon: <IdcardOutlined />,
   },
@@ -51,7 +55,8 @@ function ProfileOverview({ user }) {
       "Joining Date": user.joiningDate
         ? new Date(user.joiningDate).toLocaleDateString()
         : "Not available",
-      Location: "Not provided",
+      Location: user.address || "Not provided",
+      Company: user.workspaceId?.companyName || "Not provided",
       "Employment Type": user.employmentType || "Not provided",
     };
 

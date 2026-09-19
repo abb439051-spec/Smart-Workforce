@@ -40,6 +40,12 @@ const UsersSchema = new Schema(
       default: "",
     },
 
+    address: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
     designation: {
       type: String,
       default: "",
