@@ -12,6 +12,7 @@ function CreateWorkspace() {
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
+  const [workspaceDetails, setWorkspaceDetails] = useState({});
   const [step, setStep] = useState(1);
 
   const handleSendOtp = async (values) => {
@@ -22,6 +23,11 @@ function CreateWorkspace() {
     });
 
     setEmail(values.email.trim().toLowerCase());
+    setWorkspaceDetails({
+      companyName: values.companyName.trim(),
+      adminName: values.adminName.trim(),
+      email: values.email.trim().toLowerCase(),
+    });
     setOtpSent(true);
     setStep(2);
     message.success(response.data?.message || "Verification code sent to your email.");
@@ -30,6 +36,7 @@ function CreateWorkspace() {
   const handleCreateWorkspace = async (values) => {
     await api.post("/auth/createWorkspace", {
       ...values,
+      ...workspaceDetails,
       email,
       otp: values.otp,
     });
@@ -59,6 +66,7 @@ function CreateWorkspace() {
     setOtpSent(false);
     setStep(1);
     setEmail("");
+    setWorkspaceDetails({});
   };
 
   return (

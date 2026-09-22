@@ -1,11 +1,11 @@
 const Joi = require("joi");
 
 const createWorkspaceValidation = Joi.object({
-    companyName: Joi.string().required(),
+    companyName: Joi.string().trim().required(),
 
-    adminName: Joi.string().required(),
+    adminName: Joi.string().trim().required(),
 
-    email: Joi.string().email().required(),
+    email: Joi.string().email().lowercase().trim().required(),
 
     password: Joi.string().min(6).max(20).required(),
 
@@ -15,7 +15,7 @@ const createWorkspaceValidation = Joi.object({
 });
 
 const loginValidation = Joi.object({
-    email: Joi.string().email().required(),
+    email: Joi.string().email().lowercase().trim().required(),
     password: Joi.string().required(),
     remember: Joi.boolean(),
 });
